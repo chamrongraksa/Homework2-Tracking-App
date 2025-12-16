@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily-Tracker</title>
+    <script src="https://kit.fontawesome.com/2cb0c91dfc.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="css/form.css">
+
+</head>
+<body>
+    <header>
+        <aside>
+            <div class="logo">
+                <a href=""><img src="img/logo.png" alt="logo"></a>
+            </div>
+            <input type="checkbox" id="menu-toggle">
+            <label for="menu-toggle" class="menu-icon">☰</label>
+
+            <nav class="navbar">
+                <ul class="menu">
+                    <li><a data-type="home">Home</a></li>
+                    <li><a data-type="expense">Expense</a></li>
+                    <li><a data-type="activity">Activity</a></li>
+                    <li><a data-type="habit">Health</a></li>
+                    <li><a data-type="work">Work & Study</a></li>
+                    <li><a data-type="summary">Summary</a></li>
+                </ul>
+            </nav>
+        </aside>
+    </header>
+
+    <main id="content">
+        <section class="about-rgc">
+            <div class="banner">
+                <img id="banner" src="img/banner.png" alt="">
+            </div>
+            <div class="about-text">
+                <p id="about-p">Daily Tracking Application</p>
+                <p id="describe-rgc">Welcome to Daily Tracking management software that allow you to control everything in you dialy life in just one place! We offer lots of features for you in detail ranging from expenses to work and study. Finally summary part is provided to review the report easier!</p>
+
+                <button id="start-btn">
+                    <ul class="menu">
+                    <li>
+                        <a href="">Start <i class="fa-solid fa-caret-down"></i></a>
+                        <ul>
+                            <li><a data-type="expense">Expense</a></li>
+                            <li><a data-type="activity">Activity</a></li>
+                            <li><a data-type="habit">Health</a></li>
+                            <li><a data-type="work">Work & Study</a></li>
+
+                        </ul>
+                    </li>
+                </ul>
+                </button>
+
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div>
+            <section>
+                <a href="">About Developer</a>
+                <a href="">Privacy Policy</a>
+                <a href="">How To Use</a>
+            </section>
+            <hr>
+            <section>
+                <p>© 2025 Chamrong Raksa-All rights reserved.</p>
+                <div>
+                    <i class="fa-brands fa-linkedin"></i>
+                    <i class="fa-brands fa-facebook-f"></i>
+                    <i class="fa-brands fa-square-instagram"></i>
+                </div>
+            </section>
+        </div>
+    </footer>
+    <script src="js/app.js"></script>
+
+
+</body>
+</html>

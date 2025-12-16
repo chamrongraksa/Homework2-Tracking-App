@@ -1,0 +1,167 @@
+* {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+ }
+
+
+
+aside {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 15px 80px;
+      background: #36383B;
+      border-bottom: 0px solid #e5e5e5;
+      position: relative;
+      background-image: linear-gradient(
+            to right,
+            #d1cccc,
+            rgba(21, 29, 139, 0.685),
+            #36383B
+      );
+ }
+
+.logo img {
+      height: 70px;
+      display: block;
+      border-radius: 50%;
+      margin-right: 100px;
+      transition: filter 0.3s ease-in-out;
+      filter: brightness(1.5) contrast(1.5);
+}
+
+.navbar {
+      display: flex;
+}
+
+.menu {
+      list-style: none;
+      display: flex;
+      gap: 30px;
+}
+
+.menu li {
+      position: relative;
+}
+
+.menu a {
+      text-decoration: none;
+      font-size: 25px;
+      font-weight: 600;
+      padding: 10px 0;
+      display: inline-block;
+      color: #63ffd8; 
+}
+
+.menu a:hover {
+      color: #0a5adf;
+}
+
+.menu li ul {
+      list-style: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background: #ffffff;
+      min-width: 150px;
+      border: 1px solid #ddd;
+      display: none;
+      z-index: 1000;
+}
+
+.menu li ul li a {
+
+      padding: 12px 15px;
+      display: block;
+      font-size: 14px;
+      color: #333;
+}
+
+.menu li ul li a:hover {
+      background: #f4f6f8;
+      color: #0a5adf;
+}
+
+.menu li:hover > ul {
+      display: block;
+}
+
+
+#menu-toggle {
+      display: none;
+}
+
+.menu-icon {
+      display: none;
+      cursor: pointer;
+      color: #63ffd8;
+}
+
+
+
+@media (max-width: 900px) {
+
+header {
+      padding: 15px 20px;
+}
+.logo img {
+      height: 50px;
+      display: block;
+      border-radius: 50%;
+      margin-right: 100px;
+      transition: filter 0.3s ease-in-out;
+      filter: brightness(1.5) contrast(1.5);
+}
+
+.menu-icon {
+            display: block;
+            color: #63ffd8;
+            font-size: 30px;
+}
+
+.navbar {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      width: 100%;
+      background: #ffffff;
+      display: none;
+      border-top: 1px solid #ddd;
+}
+
+.menu {
+      flex-direction: column;
+      gap: 0;
+}
+
+
+.menu li {
+      border-bottom: 1px solid #eee;
+}
+
+.menu li a {
+      padding: 15px 20px;
+}
+
+.menu li ul {
+      position: static;
+      border: none;
+      display: none;
+      background: #f9f9f9;
+}
+
+.menu li ul li a {
+      padding-left: 40px;
+}
+
+#menu-toggle:checked + .menu-icon + .navbar {
+      display: block;
+}
+
+.menu li:hover > ul {
+      display: block;
+}
+
+}
