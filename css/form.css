@@ -52,7 +52,7 @@ form button:hover {
     transform: translateY(-2px);
 }
 
-/* Button active */
+
 form button:active {
     transform: translateY(0);
 }

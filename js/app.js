@@ -1,24 +1,34 @@
-
 const content = document.getElementById("content");
 const homeHTML = content.innerHTML;
 
 const createStore = () => {
-    let records = [];
+    const STORAGE_KEY = "my_tracker_data";
+
+    let records = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+
+    const saveToDisk = () => {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(records));
+    };
 
     return {
-        add: record => records.push(record),
-        get: () => [...records] 
+        add: record => {
+            records.push(record);
+            saveToDisk();
+        },
+        remove: index => {
+            records.splice(index, 1);
+            saveToDisk();
+        },
+        get: () => [...records]
     };
 };
 
 const store = createStore();
 
-
 const render = element => {
     content.innerHTML = "";
     content.appendChild(element);
 };
-
 
 const createForm = (title, fields, type) => {
     const form = document.createElement("form");
@@ -29,7 +39,7 @@ const createForm = (title, fields, type) => {
         input.placeholder = label;
         input.name = name;
         input.type = inputType;
-        input.required = true;
+        if (inputType !== "date") input.required = true;
         form.appendChild(input);
     });
 
@@ -40,75 +50,61 @@ const createForm = (title, fields, type) => {
 
     form.addEventListener("submit", e => {
         e.preventDefault();
+        const formData = Object.fromEntries(new FormData(form));
 
         const record = {
             type,
-            date: new Date().toLocaleDateString(),
-            ...Object.fromEntries(new FormData(form))
+            ...formData,
+            date: formData.date || new Date().toISOString().split("T")[0]
         };
 
         store.add(record);
-        alert("Record saved!");
+        alert("Record saved to local storage!");
         form.reset();
     });
 
     return form;
 };
 
+const expenseForm = () => createForm("Expense Tracking", [
+    { label: "Merchant/Store", name: "merchant", inputType: "text" },
+    { label: "Amount", name: "amount", inputType: "number" },
+    { label: "Category (Food, Rent, etc.)", name: "category", inputType: "text" },
+    { label: "Payment Method", name: "method", inputType: "text" },
+    { label: "Date", name: "date", inputType: "date" },
+    { label: "Notes", name: "note", inputType: "text" }
+], "expense");
 
-const expenseForm = () =>
-    createForm("Expense Tracking", [
-        { label: "Amount", name: "amount", inputType: "number" },
-        { label: "Category", name: "category", inputType: "text" },
-        { label: "Payment Method", name: "method", inputType: "text" },
-        { label: "Note", name: "note", inputType: "text" },
-        { label: "Date", name: "date", inputType: "date" }
-    ], "expense");
+const activityForm = () => createForm("Activity Tracking", [
+    { label: "Activity Name", name: "activity", inputType: "text" },
+    { label: "Duration (minutes)", name: "duration", inputType: "number" },
+    { label: "Intensity (1-10)", name: "intensity", inputType: "range" },
+    { label: "Location", name: "location", inputType: "text" },
+    { label: "Date", name: "date", inputType: "date" }
+], "activity");
 
+const habitForm = () => createForm("Health Tracking", [
+    { label: "Habit Name", name: "habit", inputType: "text" },
+    { label: "Status (Done / Partial / Missed)", name: "status", inputType: "text" },
+    { label: "Mood Today", name: "mood", inputType: "text" },
+    { label: "Date", name: "date", inputType: "date" }
+], "habit");
 
-const activityForm = () =>
-    createForm("Activity Tracking", [
-        { label: "Activity Name", name: "activity", inputType: "text" },
-        { label: "Duration (minutes)", name: "duration", inputType: "number" },
-        { label: "Intensity", name: "intensity", inputType: "text" },
-        { label: "Location", name: "location", inputType: "text" },
-        { label: "Date", name: "date", inputType: "date" }
-    ], "activity");
-
-
-const habitForm = () =>
-    createForm("Health Tracking", [
-        { label: "Habit Name", name: "habit", inputType: "text" },
-        { label: "Status (Done / Missed)", name: "status", inputType: "text" },
-        { label: "Mood", name: "mood", inputType: "text" },
-        { label: "Hours (if applicable)", name: "hours", inputType: "number" },
-        { label: "Date", name: "date", inputType: "date" }
-    ], "habit");
-
-
-const workStudyForm = () =>
-    createForm("Work & Study Tracking", [
-        { label: "Task / Subject", name: "task", inputType: "text" },
-        { label: "Category (Work / Study)", name: "category", inputType: "text" },
-        { label: "Focus Level (1-5)", name: "focus", inputType: "number" },
-        { label: "Hours Spent", name: "hours", inputType: "number" },
-        { label: "Date", name: "date", inputType: "date" }
-    ], "work");
-
-
+const workStudyForm = () => createForm("Work & Study Tracking", [
+    { label: "Project / Subject", name: "project", inputType: "text" },
+    { label: "Specific Task", name: "task", inputType: "text" },
+    { label: "Hours Spent", name: "hours", inputType: "number" },
+    { label: "Focus Level (1-5)", name: "focus", inputType: "number" },
+    { label: "Date", name: "date", inputType: "date" }
+], "work");
 
 const summaryView = () => {
     const div = document.createElement("div");
     div.className = "summary";
-
     const data = store.get();
 
     const stats = {
         total: data.length,
-        expense: data.filter(r => r.type === "expense").length,
-        activity: data.filter(r => r.type === "activity").length,
-        habit: data.filter(r => r.type === "habit").length,
-        work: data.filter(r => r.type === "work").length,
         totalExpense: data
             .filter(r => r.type === "expense")
             .reduce((s, r) => s + Number(r.amount || 0), 0)
@@ -116,46 +112,36 @@ const summaryView = () => {
 
     div.innerHTML = `
         <h2>Summary</h2>
-
-        <!-- Overview Cards -->
-        <div class="summary-cards">
-            <div class="card">Total<br><strong>${stats.total}</strong></div>
-            <div class="card">Expense<br><strong>${stats.expense}</strong></div>
-            <div class="card">Activity<br><strong>${stats.activity}</strong></div>
-            <div class="card">Health<br><strong>${stats.habit}</strong></div>
-            <div class="card">Work<br><strong>${stats.work}</strong></div>
+        <div class="summary-cards" ">
+            <div class="card" style="background-color:#9090d4; color:white">Entries<br><strong>${stats.total}</strong></div>
             <div class="card highlight">Spent<br><strong>$${stats.totalExpense}</strong></div>
         </div>
-
-        <!-- History -->
         <h3>History</h3>
         ${renderHistoryTable(data)}
     `;
-
     return div;
 };
 
-
 const renderHistoryTable = data => {
-    if (!data.length) return `<p>No history yet.</p>`;
+    if (!data.length) return `<p>No records found in storage.</p>`;
 
     return `
-        <table class="history-table">
-            <thead>
+        <table class="history-table" >
+            <thead style="background-color:#63ffd8">
                 <tr>
-                    <th>#</th>
                     <th>Type</th>
-                    <th>Main Info</th>
+                    <th>Info</th>
                     <th>Date</th>
+                    <th>Action</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody style="background-color:#ffc49c">
                 ${data.map((r, i) => `
                     <tr>
-                        <td>${i + 1}</td>
-                        <td>${r.type}</td>
+                        <td>${r.type.toUpperCase()}</td>
                         <td>${primaryInfo(r)}</td>
                         <td>${r.date}</td>
+                        <td><button class="btn-delete" data-index="${i}">Delete</button></td>
                     </tr>
                 `).join("")}
             </tbody>
@@ -163,62 +149,22 @@ const renderHistoryTable = data => {
     `;
 };
 
-const primaryInfo = r => {
-    switch (r.type) {
+const primaryInfo = record => {
+    const { type, merchant, amount, category, activity, duration, habit, status, task, project } = record;
+
+    switch (type) {
         case "expense":
-            return `$${r.amount} • ${r.category}`;
+            return `<strong>${merchant || "Expense"}</strong>: $${amount} (${category})`;
         case "activity":
-            return `${r.activity} • ${r.duration} min`;
+            return `${activity} for ${duration}m`;
         case "habit":
-            return `${r.habit} • ${r.status}`;
+            return `${habit}: ${status}`;
         case "work":
-            return `${r.task} • ${r.hours} hrs`;
+            return `[${project}] ${task}`;
         default:
-            return "";
+            return "View details";
     }
 };
-
-const formatDetails = record => {
-    switch (record.type) {
-        case "expense":
-            return `
-                Amount: $${record.amount}<br>
-                Category: ${record.category}<br>
-                Method: ${record.method}<br>
-                Note: ${record.note}
-            `;
-
-        case "activity":
-            return `
-                Activity: ${record.activity}<br>
-                Duration: ${record.duration} min<br>
-                Intensity: ${record.intensity}<br>
-                Location: ${record.location}
-            `;
-
-        case "habit":
-            return `
-                Habit: ${record.habit}<br>
-                Status: ${record.status}<br>
-                Mood: ${record.mood}<br>
-                Hours: ${record.hours || "-"}
-            `;
-
-        case "work":
-            return `
-                Task: ${record.task}<br>
-                Category: ${record.category}<br>
-                Focus Level: ${record.focus}<br>
-                Hours: ${record.hours}
-            `;
-
-        default:
-            return "";
-    }
-};
-
-
-
 
 const actionMap = {
     home: () => content.innerHTML = homeHTML,
@@ -229,14 +175,19 @@ const actionMap = {
     summary: () => render(summaryView())
 };
 
-
 document.addEventListener("click", e => {
     const link = e.target.closest("[data-type]");
-    if (!link) return;
+    if (link) {
+        e.preventDefault();
+        actionMap[link.dataset.type]?.();
+        return;
+    }
 
-    e.preventDefault();
-    actionMap[link.dataset.type]?.();
+    if (e.target.classList.contains("btn-delete")) {
+        const index = e.target.dataset.index;
+        if (confirm("Delete this record permanently?")) {
+            store.remove(index);
+            render(summaryView());
+        }
+    }
 });
-const totalExpense = data
-    .filter(r => r.type === "expense")
-    .reduce((sum, r) => sum + Number(r.amount || 0), 0);

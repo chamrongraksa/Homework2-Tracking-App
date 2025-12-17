@@ -1,5 +1,5 @@
 main{
-  height: 100vh;
+  height: 80%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -36,17 +36,17 @@ main{
 }
 
 #about-p {
-  font-size: 32px;
+  font-size: 50px;
   font-weight: 700;
   margin-bottom: 10px;
   color: #002457;
 }
 
 #describe-rgc {
-  font-size: 18px;
+  font-size: 25px;
   line-height: 1.6;
   margin-bottom: 25px;
-  width:700px;
+  width:100%;
 }
 
 #start-btn{
@@ -79,6 +79,8 @@ main{
     justify-content: center;
     align-items: center;
     text-align: center;
+    padding:10px;
+    width:100%;
   }
   .banner{
     display: wrap;
@@ -105,7 +107,7 @@ main{
 
   .banner img {
     justify-self: center;
-    height: 250px;
+    width:80%;
     border-radius: 20px;
   }
 

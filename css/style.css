@@ -52,7 +52,7 @@ aside {
       font-weight: 600;
       padding: 10px 0;
       display: inline-block;
-      color: #63ffd8; 
+      color: #63ffd8;
 }
 
 .menu a:hover {
@@ -103,14 +103,12 @@ aside {
 
 @media (max-width: 900px) {
 
-header {
-      padding: 15px 20px;
-}
+
 .logo img {
       height: 50px;
       display: block;
       border-radius: 50%;
-      margin-right: 100px;
+      margin-right: 0px;
       transition: filter 0.3s ease-in-out;
       filter: brightness(1.5) contrast(1.5);
 }
@@ -134,6 +132,11 @@ header {
 .menu {
       flex-direction: column;
       gap: 0;
+}
+
+.raksa{
+      background: #ffc49c;
+      border-color: #63ffd8;
 }
 
 
@@ -165,3 +168,5 @@ header {
 }
 
 }
+
+
