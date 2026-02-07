@@ -4,7 +4,9 @@
   "description": "This repository is for assignment 2.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node js/app.js",
+    "lint": "eslint .",
+    "format:check": "prettier --check ."
   },
   "repository": {
     "type": "git",
@@ -20,5 +22,12 @@
   "homepage": "https://github.com/chamrongraksa/Homework2-Tracking-App#readme",
   "dependencies": {
     "express": "^5.2.1"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "eslint": "^10.0.0",
+    "eslint-config-prettier": "^10.1.8",
+    "globals": "^17.3.0",
+    "prettier": "^3.8.1"
   }
 }

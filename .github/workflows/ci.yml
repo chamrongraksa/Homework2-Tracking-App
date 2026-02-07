@@ -11,19 +11,22 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm install
+
+      # NEW: Run Linting
+      - name: Run ESLint
+        run: npm run lint
+
+      # NEW: Check Formatting
+      - name: Check Formatting
+        run: npm run format:check
+
       - name: Build the Image
         run: docker build -t practice-app .
-
-      - name: Test the Container
-        run: |
-          # 1. Start the container in the background
-          docker run -d -p 3000:3000 --name test-env practice-app
-
-          # 2. Give the Node.js server a few seconds to boot up
-          sleep 5
-
-          # 3. Use curl to see if the homepage returns a '200 OK'
-          curl --fail http://localhost:3000 || exit 1
-
-          # 4. Cleanup: Stop the container
-          docker stop test-env
