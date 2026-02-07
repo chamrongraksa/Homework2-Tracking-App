@@ -30,3 +30,11 @@ jobs:
 
       - name: Build the Image
         run: docker build -t practice-app .
+      - name: Install dependencies
+        run: npm install
+
+      - name: Fix permissions
+        run: chmod +x ./node_modules/.bin/eslint
+
+      - name: Run ESLint
+        run: npm run lint

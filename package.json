@@ -4,9 +4,7 @@
   "description": "This repository is for assignment 2.",
   "main": "index.js",
   "scripts": {
-    "start": "node js/app.js",
-    "lint": "eslint .",
-    "format:check": "prettier --check ."
+    "lint": "npx eslint ."
   },
   "repository": {
     "type": "git",
