@@ -18,11 +18,9 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # Step 2: Set up Docker Buildx (for faster builds)
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
+      - name: Show files (Debug)
+        run: ls -R  # This will print every file in the logs so you can see where the Dockerfile is!
 
-      # Step 3: Build the Docker Image
       - name: Build Docker image
         run: |
           docker build -t my-node-app:latest .
