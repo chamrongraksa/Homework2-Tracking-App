@@ -1,14 +1,12 @@
-
-
 footer {
   background-image: linear-gradient(
-            to right,
-            #000000,
-            black,
-            rgb(18, 30, 86),
-            #000000,
-            black
-      );
+    to right,
+    #000000,
+    black,
+    rgb(18, 30, 86),
+    #000000,
+    black
+  );
   padding: 20px 0;
   color: #63ffd8;
   font-family: sans-serif;

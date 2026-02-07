@@ -1,43 +1,35 @@
-name: Docker Build and Test
+name: Node.js CI Practice
 
 on:
+  pull_request:
+    branches: ["main"]
   push:
-    branches: [ "main" ]
+    branches: ["main"]
 
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
+
     steps:
+      # Step 1: Checkout code
       - name: Checkout code
         uses: actions/checkout@v4
 
+      # Step 2: Setup Node.js
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
-          cache: 'npm'
+          node-version: "20"
+          cache: "npm"
 
+      # Step 3: Install dependencies
       - name: Install dependencies
-        run: |
-          # Remove any existing node_modules to ensure no Windows-to-Linux permission issues
-          rm -rf node_modules
-          npm ci
+        run: npm ci
 
-      # NEW: Run Linting
-      - name: Run ESLint
-        run: npm run lint
-
-      # NEW: Check Formatting
-      - name: Check Formatting
+      # Step 4: Run format check
+      - name: Run format check
         run: npm run format:check
 
-      - name: Build the Image
-        run: docker build -t practice-app .
-      - name: Install dependencies
-        run: npm install
-
-      - name: Fix permissions
-        run: chmod +x ./node_modules/.bin/eslint
-
-      - name: Run ESLint
+      # Step 5: Run lint
+      - name: Run lint
         run: npm run lint
