@@ -1,4 +1,4 @@
-main{
+main {
   height: 80%;
   display: flex;
   justify-content: center;
@@ -15,24 +15,21 @@ main{
   padding: 60px 50px;
 }
 
-
 .banner {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-right:100px;
+  margin-right: 100px;
 }
 
-.banner img{
-  width:500px;
+.banner img {
+  width: 500px;
   border-radius: 30px;
 }
 
-
-
 .about-text {
-  flex:1;
-  margin-left:100px;
+  flex: 1;
+  margin-left: 100px;
 }
 
 #about-p {
@@ -46,30 +43,25 @@ main{
   font-size: 25px;
   line-height: 1.6;
   margin-bottom: 25px;
-  width:100%;
+  width: 100%;
 }
 
-#start-btn{
+#start-btn {
   background-color: rgb(255, 0, 43);
   border-radius: 50px;
-  padding:0px 30px;
+  padding: 0px 30px;
 }
-
-
-
-
-
 
 #menu-toggle:checked + .menu-icon + .navbar {
-      display: block;
+  display: block;
 }
 .menu li:hover > ul {
-      display: block;
+  display: block;
 }
 .about-text ul li {
-      list-style: none;
-      display: flex;
-      gap: 30px;
+  list-style: none;
+  display: flex;
+  gap: 30px;
 }
 
 @media (max-width: 1300px) {
@@ -79,10 +71,10 @@ main{
     justify-content: center;
     align-items: center;
     text-align: center;
-    padding:10px;
-    width:100%;
+    padding: 10px;
+    width: 100%;
   }
-  .banner{
+  .banner {
     display: wrap;
     justify-content: center;
     align-items: center;
@@ -107,9 +99,7 @@ main{
 
   .banner img {
     justify-self: center;
-    width:80%;
+    width: 80%;
     border-radius: 20px;
   }
-
-
 }

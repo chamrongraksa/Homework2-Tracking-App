@@ -1,7 +1,5 @@
 {
-        "editor.tabSize": 6,
-        "editor.lineHeight": 1.5,
-        "json.schemas": [
-                
-        ]
+  "editor.tabSize": 6,
+  "editor.lineHeight": 1.5,
+  "json.schemas": []
 }
