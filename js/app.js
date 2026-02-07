@@ -228,44 +228,44 @@ const primaryInfo = (r) => {
   }
 };
 
-const formatDetails = (record) => {
-  switch (record.type) {
-    case "expense":
-      return `
-                Amount: $${record.amount}<br>
-                Category: ${record.category}<br>
-                Method: ${record.method}<br>
-                Note: ${record.note}
-            `;
+// const formatDetails = (record) => {
+//   switch (record.type) {
+//     case "expense":
+//       return `
+//                 Amount: $${record.amount}<br>
+//                 Category: ${record.category}<br>
+//                 Method: ${record.method}<br>
+//                 Note: ${record.note}
+//             `;
 
-    case "activity":
-      return `
-                Activity: ${record.activity}<br>
-                Duration: ${record.duration} min<br>
-                Intensity: ${record.intensity}<br>
-                Location: ${record.location}
-            `;
+//     case "activity":
+//       return `
+//                 Activity: ${record.activity}<br>
+//                 Duration: ${record.duration} min<br>
+//                 Intensity: ${record.intensity}<br>
+//                 Location: ${record.location}
+//             `;
 
-    case "habit":
-      return `
-                Habit: ${record.habit}<br>
-                Status: ${record.status}<br>
-                Mood: ${record.mood}<br>
-                Hours: ${record.hours || "-"}
-            `;
+//     case "habit":
+//       return `
+//                 Habit: ${record.habit}<br>
+//                 Status: ${record.status}<br>
+//                 Mood: ${record.mood}<br>
+//                 Hours: ${record.hours || "-"}
+//             `;
 
-    case "work":
-      return `
-                Task: ${record.task}<br>
-                Category: ${record.category}<br>
-                Focus Level: ${record.focus}<br>
-                Hours: ${record.hours}
-            `;
+//     case "work":
+//       return `
+//                 Task: ${record.task}<br>
+//                 Category: ${record.category}<br>
+//                 Focus Level: ${record.focus}<br>
+//                 Hours: ${record.hours}
+//             `;
 
-    default:
-      return "";
-  }
-};
+//     default:
+//       return "";
+//   }
+// };
 
 const actionMap = {
   home: () => (content.innerHTML = homeHTML),
@@ -295,6 +295,6 @@ document.addEventListener("click", (e) => {
   }
 });
 
-const totalExpense = data
-  .filter((r) => r.type === "expense")
-  .reduce((sum, r) => sum + Number(r.amount || 0), 0);
+// const totalExpense = data
+//   .filter((r) => r.type === "expense")
+//   .reduce((sum, r) => sum + Number(r.amount || 0), 0);
