@@ -18,7 +18,10 @@ jobs:
           cache: 'npm'
 
       - name: Install dependencies
-        run: npm install
+        run: |
+          # Remove any existing node_modules to ensure no Windows-to-Linux permission issues
+          rm -rf node_modules
+          npm ci
 
       # NEW: Run Linting
       - name: Run ESLint
