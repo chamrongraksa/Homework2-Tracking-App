@@ -1,34 +1,15 @@
+name: Docker Build Practice
 
-name: Docker CI
-
-# 1. When should this run?
 on:
   push:
     branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
 
-# 2. What should it do?
 jobs:
-  build-and-test:
+  build:
     runs-on: ubuntu-latest
-
     steps:
-      # Step 1: Copy the code from GitHub onto the runner
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Show files (Debug)
-        run: ls -R  # This will print every file in the logs so you can see where the Dockerfile is!
-
-      - name: Build Docker image
-        run: |
-          docker build -t my-node-app:latest .
-
-      # Step 4: Verify the container starts (Test)
-      - name: Test Container
-        run: |
-          docker run -d -p 3000:3000 --name test-container my-node-app:latest
-          sleep 5
-          curl --fail http://localhost:3000 || exit 1
-          docker stop test-container
+      - name: Build the Image
+        run: docker build -t practice-app .

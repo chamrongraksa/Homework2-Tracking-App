@@ -17,5 +17,8 @@
   "bugs": {
     "url": "https://github.com/chamrongraksa/Homework2-Tracking-App/issues"
   },
-  "homepage": "https://github.com/chamrongraksa/Homework2-Tracking-App#readme"
+  "homepage": "https://github.com/chamrongraksa/Homework2-Tracking-App#readme",
+  "dependencies": {
+    "express": "^5.2.1"
+  }
 }
